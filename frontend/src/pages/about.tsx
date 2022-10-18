@@ -2,12 +2,12 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import { Box } from '@mui/system'
 
-const Home: NextPage = () => {
+const About: NextPage = () => {
 
   return (
     <Box>  
     <h1>
-        Home
+        about
     </h1>
     <div>
         <h1>
@@ -20,4 +20,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default About
