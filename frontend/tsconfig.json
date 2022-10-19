@@ -16,6 +16,6 @@
     "incremental": true,
     "baseUrl": "src"
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "../test/react-app-env.d.ts"],
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "../test/react-app-env.d.ts", "../ts-sample/test.tsx", "../ts-sample/signin.tsx"],
   "exclude": ["node_modules"]
 }

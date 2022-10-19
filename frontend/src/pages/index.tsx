@@ -1,23 +1,14 @@
-import type { NextPage } from 'next'
-import Link from 'next/link'
-import { Box } from '@mui/system'
+import Auth from "components/Auth";
+import Layout from "components/Layout";
+import { NextPage } from "next";
+import React from 'react'
 
-const Home: NextPage = () => {
-
+const Index: NextPage = () => {
   return (
-    <Box>  
-    <h1>
-        Home
-    </h1>
-    <div>
-        <h1>
-            <Link href='/signin'>
-                <a>Sigin</a>
-            </Link>
-        </h1>
-    </div>
-    </Box>
-  )
+    <Layout title="Login">
+      <Auth />
+    </Layout>
+  );
 }
 
-export default Home
+export default Index

@@ -6,7 +6,7 @@ app_name = 'user'
 
 router = DefaultRouter()
 router.register('profile', views.ProfileviewSet)
-router.register('animal', views.PostViewSet)
+router.register('post', views.PostViewSet)
 router.register('comment', views.CommentViewSet)
 
 urlpatterns = [
