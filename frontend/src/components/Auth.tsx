@@ -1,25 +1,11 @@
 import React, { useState } from "react"
 import { useRouter } from "next/router"
 import Cookie from "universal-cookie"
+import { PROPS_AUTHEN, PROPS_NAME } from "types";
+import createProf from "./CreateProf";
+import { getProf } from "./GetProf";
 
 const cookie = new Cookie();
-
-type Event = {
-  onClick: (event: React.MouseEvent<HTMLInputElement>) => void
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  onkeypress: (event: React.KeyboardEvent<HTMLInputElement>) => void
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void
-  onFocus: (event: React.FocusEvent<HTMLInputElement>) => void
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
-  onClickDiv: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-}
-
-type AuthData = {
-  email: string
-  password: string
-  isLogin: boolean
-}
-
 
 const Auth = () => {
   const router = useRouter();
@@ -41,7 +27,7 @@ const Auth = () => {
       )
       .then((res) => {
         if (res.status === 400) {
-          throw 'authentication failed';
+          throw 'authlization failed';
         } else if (res.ok) {
           return res.json();
         }
@@ -49,6 +35,7 @@ const Auth = () => {
       .then((data) => {
         const options = { path: '/' };
         cookie.set('access_token', data.access, options);
+        getProf();
       });
       router.push('/top');
     } catch (err) {
@@ -70,10 +57,11 @@ const Auth = () => {
           },
         }).then((res) => {
           if (res.status === 400) {
-            throw 'authentication falied';
+            throw 'すでに登録されているメールアドレスです。ログインしてください。';
           }
         });
-        login();
+        await login();
+        await createProf();
       } catch (err) {
         alert(err);
       }
