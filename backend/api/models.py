@@ -3,6 +3,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.conf import settings
 import uuid
 
+def uuid4():
+    return uuid.uuid4().hex
+
 def upload_avatar_path(instance, filename):
     ext = filename.split('.')[-1]
     return '/'.join(['avatars', str(instance.userProfile.id)+str(instance.name)+str(".")+str(ext)])
@@ -31,7 +34,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.CharField(primary_key=True, default=uuid4, editable=False, max_length=33, unique=True)
     email = models.EmailField(max_length=50, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -45,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.CharField(primary_key=True, default=uuid4, editable=False, max_length=33, unique=True)
     userProfile = models.OneToOneField(
         settings.AUTH_USER_MODEL, related_name='userProfile',
         on_delete=models.CASCADE
@@ -66,7 +69,7 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL, related_name='post',
         on_delete=models.CASCADE
     )
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.CharField(primary_key=True, default=uuid4, editable=False, max_length=33, unique=True)
     title = models.CharField(verbose_name='タイトル', max_length=50)
     description = models.TextField(verbose_name='概要', max_length=1000, blank=True, null=True)
     img = models.ImageField(verbose_name='画像', blank=True, null=True, upload_to=upload_post_path)
